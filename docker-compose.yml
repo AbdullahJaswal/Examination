@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+    postgres:
+        image: postgres:latest
+        container_name: PostgreSQL
+        volumes:
+            - .dbdata:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=ilm
+        ports:
+            - "5432:5432"
+        restart: always
+    django:
+        build: .
+        container_name: Django
+        command: bash -c "chmod +x /code/run_server_dev.sh && /code/run_server_dev.sh"
+        volumes:
+            - .:/code
+        environment:
+            - DJANGO_SUPERUSER_USERNAME=admin
+            - DJANGO_SUPERUSER_EMAIL=admin@admin.com
+            - DJANGO_SUPERUSER_PASSWORD=admin
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgres
