@@ -49,4 +49,6 @@ urlpatterns = [
     path('user/', include('users.urls', namespace='users')),
     path('content/', include('content.urls', namespace='content')),
     path('product/', include('product.urls', namespace='product')),
+    path('examination/', include('examination.urls', namespace='examination')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

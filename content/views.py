@@ -89,7 +89,7 @@ class TopicDetail(generics.RetrieveUpdateDestroyAPIView):
         return permissions_func
 
 
-# SubTopic
+# Sub Topic
 class SubTopicList(generics.ListCreateAPIView):
     model = SubTopic
     permission_classes = permissions

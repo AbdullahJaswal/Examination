@@ -3,13 +3,13 @@ from django.db import models
 
 # Create your models here.
 class Topic(models.Model):
-    name = models.CharField(max_length=255, blank=False)
+    name = models.CharField(max_length=255, blank=False, unique=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(unique=True, max_length=255, blank=False)
 
     sub_topics = models.ManyToManyField('SubTopic', blank=True)
 
-    is_active = models.BooleanField(default=False, blank=False)
+    is_active = models.BooleanField(default=True, blank=False)
 
     order = models.IntegerField(blank=False)
 
@@ -27,13 +27,13 @@ class Topic(models.Model):
 
 
 class SubTopic(models.Model):
-    name = models.CharField(max_length=255, blank=False)
+    name = models.CharField(max_length=255, blank=False, unique=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(unique=True, max_length=255, blank=False)
 
     questions = models.ManyToManyField('Question', blank=True)
 
-    is_active = models.BooleanField(default=False, blank=False)
+    is_active = models.BooleanField(default=True, blank=False)
 
     order = models.IntegerField(blank=False)
 
@@ -41,8 +41,8 @@ class SubTopic(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'SubTopic'
-        verbose_name_plural = 'SubTopics'
+        verbose_name = 'Sub Topic'
+        verbose_name_plural = 'Sub Topics'
 
         ordering = ('order',)
 
@@ -51,7 +51,7 @@ class SubTopic(models.Model):
 
 
 class Question(models.Model):
-    content = models.TextField(blank=False)
+    content = models.TextField(blank=False, unique=True)
     explanation = models.TextField(blank=False)
 
     answers = models.ManyToManyField('Answer', blank=True)
